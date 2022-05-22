@@ -49,35 +49,35 @@ void setup() {
 }
 
 void loop() {
-  
-  
-  
-    // Read all analog inputs and map them to one Byte value
-    // 1Pot is left hand and 2Pot is right hand
-  data.j1PotX = map(analogRead(A0), 0, 1023, 0, 255); // Convert the analog read value from 0 to 1023 into a BYTE value from 0 to 255
-  data.j1PotY = map(analogRead(A1), 0, 1023, 0, 255);
-  data.j2PotX = map(analogRead(A3), 0, 1023, 0, 255);
-  data.j2PotY = map(analogRead(A3), 0, 1023, 0, 255);
 
-  // For testing puroposes, prints values to serial monitor
-  Serial.print("Yaw: ");
-  Serial.println(data.j1PotX);
-  Serial.print("Throttle: ");
-  Serial.println(data.j1PotY);
-  Serial.print("Roll: ");
-  Serial.println(data.j2PotX);
-  Serial.print("Pitch: ");
-  Serial.println(data.j2PotY);
-  Serial.println("--------------");
   
-    // If toggle switch 1 is switched on
-  if (digitalRead(t1) == 0) {
+      // Read all analog inputs and map them to one Byte value
+      // 1Pot is left hand and 2Pot is right hand
+    data.j1PotX = map(analogRead(A0), 0, 1023, 0, 255); // Convert the analog read value from 0 to 1023 into a BYTE value from 0 to 255
+    data.j1PotY = map(analogRead(A1), 0, 1023, 0, 255);
+    data.j2PotX = map(analogRead(A3), 0, 1023, 0, 255);
+    data.j2PotY = map(analogRead(A3), 0, 1023, 0, 255);
+    data.tSwitch1 = digitalRead(t1);
+  
+    // For testing puroposes, prints values to serial monitor
+    Serial.print("Yaw: ");
+    Serial.println(data.j1PotX);
+    Serial.print("Throttle: ");
+    Serial.println(data.j1PotY);
+    Serial.print("Roll: ");
+    Serial.println(data.j2PotX);
+    Serial.print("Pitch: ");
+    Serial.println(data.j2PotY);
+    Serial.println("--------------");
     
-  }
+      // If toggle switch 1 is switched on
   
-  // Send the whole data from the structure to the receiver
-  radio.write(&data, sizeof(Data_Package));
+    
+    // Send the whole data from the structure to the receiver
+    radio.write(&data, sizeof(Data_Package));
+  
+    delay(1000); //Just for testing purposes.
+    
 
-  delay(1000); //Just for testing purposes.
   
 }
