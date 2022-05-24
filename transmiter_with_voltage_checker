@@ -21,11 +21,13 @@ struct Data_Package {
 };
 
 struct LCD_Values {
-  float v0
-  float v1
-  float v2
-  float v3
-}
+  float v0;
+  float v1;
+  float v2;
+  float v3;
+};
+
+LCD_Values LCD_Values;
 
 Data_Package data; //Create a variable with the above structure
 
@@ -33,6 +35,8 @@ Data_Package data; //Create a variable with the above structure
 int Contrast = 10;
 LiquidCrystal lcd(2, 3, 4, 7, 8, 9); //LiquidCrystal(rs, enable, d4, d5, d6, d7)
 
+unsigned long lastReceiveTime = 0;
+unsigned long current_Time = 0;
 
 void setup() {
     
@@ -65,13 +69,6 @@ void setup() {
 }
 
 
-struct LCD_Values {
-  char vbuf0[16];
-  char vbuf1[16];
-  char vbuf2[16];
-  char vbuf3[16];
-}
-
 void loop() {
 
   if (radio.available()) {
@@ -86,13 +83,16 @@ void loop() {
   
   //Change LCD display
   lcd.setCursor(0, 0);
-  lcd.print("C1:     ", LCD_Values.v0);
-  lcd.print("C2: ", LCD_Values.v1);
-
+  lcd.print("C1:     ");
+  lcd.print(LCD_Values.v0);
+  lcd.print("C2: ");
+  lcd.print(LCD_Values.v1);
 
   lcd.setCursor(0, 1);
-  lcd.print("C3:     ", LCD_Values.v2);
-  lcd.print("C4: ", LCD_Values.v3);
+  lcd.print("C3:     ");
+  lcd.print(LCD_Values.v2);
+  lcd.print("C4: ");
+  lcd.print(LCD_Values.v3);
   
   
   // Read all analog inputs and map them to one Byte value
@@ -120,3 +120,14 @@ void loop() {
   delay(1000); //Just for testing purposes.
   
 }
+
+
+void resetData() {
+  // Reset the values when there is no radio connection - Set initial default values
+  data.j1PotX = 127;
+  data.j1PotY = 0;
+  data.j2PotX = 127;
+  data.j2PotY = 127;
+  data.tSwitch1 = 1;
+}
+
