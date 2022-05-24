@@ -35,7 +35,9 @@ struct LCD_Values {
   char vbuf1[16];
   char vbuf2[16];
   char vbuf3[16];
-}
+};
+
+LCD_Values LCD_Values;
 
 struct Data_Package {
   byte j1PotX;
@@ -46,6 +48,23 @@ struct Data_Package {
 };
 
 int throttleValue, rudderValue, elevatorValue, aileron1Value, aileron2Value, travelAdjust;
+
+#define MOVING_AVERAGE_COUNT 16
+
+unsigned int samples0[MOVING_AVERAGE_COUNT];
+unsigned int samples1[MOVING_AVERAGE_COUNT];
+unsigned int samples2[MOVING_AVERAGE_COUNT];
+unsigned int samples3[MOVING_AVERAGE_COUNT];
+
+int total0 = 0;
+int total1 = 0;
+int total2 = 0;
+int total3 = 0;
+
+int maIndex0 = 0;
+int maIndex1 = 0;
+int maIndex2 = 0;
+int maIndex3 = 0;
 
 
 Data_Package data;
