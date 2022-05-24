@@ -20,6 +20,13 @@ struct Data_Package {
   byte tSwitch1;
 };
 
+struct LCD_Values {
+  float v0
+  float v1
+  float v2
+  float v3
+}
+
 Data_Package data; //Create a variable with the above structure
 
 // Define LCD screen properties
@@ -79,13 +86,13 @@ void loop() {
   
   //Change LCD display
   lcd.setCursor(0, 0);
-  lcd.print("C1:     ", vbuf0);
-  lcd.print("C2: ", vbuf1);
+  lcd.print("C1:     ", LCD_Values.v0);
+  lcd.print("C2: ", LCD_Values.v1);
 
 
   lcd.setCursor(0, 1);
-  lcd.print("C3:     ", vbuf2);
-  lcd.print("C4: ", vbuf3);
+  lcd.print("C3:     ", LCD_Values.v2);
+  lcd.print("C4: ", LCD_Values.v3);
   
   
   // Read all analog inputs and map them to one Byte value
