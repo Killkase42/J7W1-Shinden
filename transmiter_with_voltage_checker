@@ -9,7 +9,7 @@
 #define t1 7   // Toggle switch 1
 
 RF24 radio(5, 6);   // nRF24L01 (CE, CSN)
-const byte address[6] = "00001"; // Address
+const byte addresses[][6] = {"00001", "00002"};
 
 // Max size of this struct is 32 bytes - NRF24L01 buffer limit
 struct Data_Package {
@@ -43,8 +43,8 @@ void setup() {
   // Define the radio communication
   radio.begin();
   Serial.begin(9600);
-  radio.openWritingPipe(address);
-  radio.openReadingPipe(0, address);
+  radio.openWritingPipe(addresses[1]);
+  radio.openReadingPipe(0, addresses[0]);
   radio.setAutoAck(false);
   radio.setDataRate(RF24_250KBPS);
   radio.setPALevel(RF24_PA_LOW);
@@ -130,4 +130,3 @@ void resetData() {
   data.j2PotY = 127;
   data.tSwitch1 = 1;
 }
-
